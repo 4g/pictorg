@@ -1,5 +1,5 @@
 import sys
-from hash import FileHasher 
+from hash import get_hash 
 from jobs import  create_job_file
 from exif import get_date
 import os
@@ -17,11 +17,10 @@ def get_new_files_dict(src, dest):
     return src_dict
 
 def get_hash_dict(root,dest_dict=None):
-    FH = FileHasher()
     hash_dict = dict()
     for file_path in get_files(root):                
         try:                            
-            date , hashv = get_date(file_path) , FH.hash(file_path)
+            date , hashv = get_date(file_path) , get_hash(file_path)
             if dest_dict == None :
                 hash_dict[hashv] = [file_path , date]
             else:
